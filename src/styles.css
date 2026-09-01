@@ -29,13 +29,15 @@
         "search feelsLike wind settings"
         "forecast forecast forecast forecast";
     justify-items: center;
-    gap: 10px;
+    gap: 15px;
     >*{
+        /* padding: 10px; */
         display: flex;
         flex-direction: column;
         align-items: left;
         justify-content: center;
         border: 1px solid  darkgrey;
+        border-radius: 10px;
         background-color: rgba(254, 254, 254, 0.028);
         width: 100%;
         height: 100%;
@@ -84,10 +86,20 @@
         flex:9;
         background-color: rgb(40, 40, 40); 
         color: lightgrey;
+        border-radius: 10px 0px 0px 10px;
+        padding: 5px;
     }
     button{
         flex:1;
         cursor: pointer;
+        border-radius: 0px 10px 10px 0px;
+        &:hover{
+            background-color: rgba(254, 254, 254, 0.028);
+            transition: background-color 0.2s ease;
+        }
+        &:not(:hover){
+            transition: background-color 0.2s ease;
+        }
     }
 }
 

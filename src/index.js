@@ -14,6 +14,8 @@ const errorMessage = document.getElementById("errorMessage");
 const toggleTemp = document.querySelector(".toggle");
 const slider = document.querySelector(".slider");
 
+const loader = document.querySelector("#loaderContainer");
+
 toggleTemp.checked = false; // Set the initial state to Celsius
 
 
@@ -34,11 +36,13 @@ toggleTemp.addEventListener("change", () => {
 
 
 async function fetchWeatherData(city) {
+    loader.classList.remove("hidden"); // Show the loader before fetching data
   const url = `https://data.api.xweather.com/conditions/${encodeURIComponent(city)}?client_id=hznOzGDKw5OtIz8EL4Db9&client_secret=qZz6RWy8YpiFOChHyAu5wU2T1MyUkeXmglrTMDJB`;
   const response = await fetch(url);
   const data = await response.json();
   console.log("Fetched weather data for city:", city);
   console.log(data);
+  loader.classList.add("hidden"); // Hide the loader after fetching data
   return data;
 }
 
@@ -56,12 +60,13 @@ async function getCurrentLocation() {
 
 
 async function getCityAndCountryFromCoordinates(latitude, longitude) {
-  const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`;
-  const response = await fetch(url);
-  const data = await response.json();
-  const city = data.city || data.locality || "Unknown Location";
-  const countryCode = data.countryCode || "Unknown Country";
-  return `${city}, ${countryCode}`;
+
+    const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`;
+    const response = await fetch(url);
+    const data = await response.json();
+    const city = data.city || data.locality || "Unknown Location";
+    const countryCode = data.countryCode || "Unknown Country";
+    return `${city}, ${countryCode}`;
 }
                                                
 

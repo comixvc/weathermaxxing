@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+<script defer src="main.js"></script></head>
+<body>
+    <div id="container">
+        <div id="searchTile">
+            <h1>WeatherMaxxing</h1>
+            <p1>Lets weathermaxx using Xweather API!!!</p1>
+            <div id="search">
+                <input type="text" id="cityInput" placeholder="Enter city name" autocomplete="off" list="citySuggestions">
+                <datalist id="citySuggestions">
+                    <!-- <option value="Tokyo, jp">
+                    <option value="New York, us">
+                    <option value="London, uk">
+                    <option value="Paris, fr">
+                    <option value="Sydney, au"> -->
+                </datalist>
+                <button id="searchButton">Search</button>
+            </div>
+            <p id ="errorMessage"> </p>
+            <div id="status">
+                <p>Current Location:</p>
+                <h1 id="location" class="data">Location</h1>
+            </div>  
+            
+        </div>
+        <div id="tempTile">
+            <span>temerature</span>
+            <div id="tempData" class="data">temp</div>
+            <label class="switch">
+                <input type="checkbox" class="toggle">
+                <span class="slider">C</span>
+            </label>
+        </div>
+        <div id="feelsLikeTile">
+            <span>feelslike</span>
+            <div id="feelsLikeData" class="data">feels like</div>
+        </div>
+        <div id="humidityTile">
+            <span>humidity</span>
+            <div id="humidityData" class="data">humidity</div>
+        </div>
+        <div id="windTile">
+            <span>wind</span>
+            <div id="windData" class="data">wind</div>
+        </div>
+        <div id="forecastTile">
+            <span>forecast</span>
+            <div id="forecastData" class="data">forecast</div>
+        </div>
+    </div>
+    <div id="loaderContainer" class="hidden"><div class="loader"></div></div>
+</body>
+</html>

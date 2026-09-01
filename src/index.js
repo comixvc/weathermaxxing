@@ -11,6 +11,26 @@ const cityInput = document.getElementById("cityInput");
 const locationElement = document.getElementById("location");
 const dropdown = document.querySelector("#citySuggestions");
 const errorMessage = document.getElementById("errorMessage");
+const toggleTemp = document.querySelector(".toggle");
+const slider = document.querySelector(".slider");
+
+toggleTemp.checked = false; // Set the initial state to Celsius
+
+
+let data = null;
+
+getCurrentLocation();
+
+toggleTemp.addEventListener("change", () => {
+    if (toggleTemp.checked) {
+        setTemperature(data, "F");
+        slider.textContent = "F";
+    } else {
+        // Convert temperature to Celsius
+        setTemperature(data, "C");
+        slider.textContent = "C";
+    }
+});
 
 
 async function fetchWeatherData(city) {
@@ -45,7 +65,6 @@ async function getCityAndCountryFromCoordinates(latitude, longitude) {
 }
                                                
 
-getCurrentLocation();
 
 cityInput.addEventListener("input", async () => {
     dropdown.innerHTML = "";
@@ -86,21 +105,36 @@ searchButton.addEventListener("click", () => {
 
 // updateLocation("Tokyo, jp");
 
-
-
 async function updateLocation(city) {
-    locationElement.textContent = city;
-    const data = await fetchWeatherData(city);
-    // setTemperature(data);
-    // setFeelsLike(data);
-    // setHumidity(data);
-    // setWind(data);
-    // setForecast(data);
+    errorMessage.textContent = "";
+    try {
+        locationElement.textContent = city;
+        data = await fetchWeatherData(city);
+        setTemperature(data, toggleTemp.checked ? "F" : "C");
+        setFeelsLike(data);
+        setHumidity(data);
+        setWind(data);
+        setForecast(data)
+    } catch (error) {
+        errorMessage.textContent = "Error: Invalid city name or data not available.";
+        tempData.textContent = "N/A";
+        feelsLikeData.textContent = "N/A";
+        humidityData.textContent = "N/A";
+        windData.textContent = "N/A";
+        forecastData.textContent = "N/A";
+    }
 }
 
-function setTemperature(data) {
-    const temperature = data.response[0].periods[0].tempC;
-    tempData.textContent = `${temperature}°C`;
+function setTemperature(data, unit) {
+    let temperature = 0;
+    const Ctemperature = data.response[0].periods[0].tempC;
+    const Ftemperature = data.response[0].periods[0].tempF;
+    if (unit === "C") {
+        temperature = Ctemperature;
+    } else {
+        temperature = Ftemperature;
+    }
+    tempData.textContent = `${temperature}°${unit}`;
 }
 function setFeelsLike(data) {
     const feelsLike = data.response[0].periods[0].feelslikeC;
